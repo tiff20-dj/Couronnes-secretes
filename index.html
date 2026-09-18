@@ -2,206 +2,1068 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Besties pour la vie ❤️</title>
+
 <style>
-body{font-family:Arial;text-align:center;background:#ffe6f2;margin:0;padding:20px}
-h1{color:#d63384}
-button{padding:14px;margin:8px;border:0;border-radius:12px;font-size:16px}
-input{padding:12px;border-radius:10px;border:1px solid #ccc}
-#game{display:none}
-#finish{display:none}
+:root{
+  --pink:#ed4f91;
+  --pink2:#fff0f7;
+  --gold:#f7c84b;
+  --ink:#432b42;
+  --gray:#a1a7ad;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,sans-serif;
+  color:var(--ink);
+  background:linear-gradient(135deg,#fff0f7,#fffbe9);
+  min-height:100vh;
+}
+
+main{
+  width:min(100%,760px);
+  margin:auto;
+  padding:16px;
+}
+
+.panel{
+  background:#ffffffee;
+  border-radius:25px;
+  padding:20px;
+  box-shadow:0 12px 35px #8c426020;
+}
+
+h1{
+  text-align:center;
+  color:#d83d78;
+  font-size:clamp(1.8rem,7vw,2.7rem);
+  margin:4px 0;
+}
+
+h2{
+  margin:8px 0 12px;
+}
+
+.center{text-align:center}
+
+.muted{
+  color:#765e74;
+  font-size:.9rem;
+}
+
+label{
+  font-weight:700;
+  font-size:.9rem;
+  display:block;
+  margin:8px 0 5px;
+}
+
+input,button{
+  font:inherit;
+  border-radius:14px;
+  padding:12px;
+  border:1px solid #e2cbd6;
+}
+
+input{
+  width:100%;
+  background:white;
+}
+
+button{
+  background:var(--pink);
+  color:white;
+  border:0;
+  font-weight:700;
+  cursor:pointer;
+}
+
+button.secondary{
+  background:#7d6580;
+}
+
+button:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
+
+.row{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.field{
+  flex:1;
+  min-width:140px;
+}
+
+.status{
+  background:#fff2c9;
+  border-radius:13px;
+  padding:11px;
+  margin:12px 0;
+  font-size:.92rem;
+}
+
+.code{
+  font-size:1.8rem;
+  font-weight:900;
+  letter-spacing:5px;
+  text-align:center;
+  background:#fff2bd;
+  border-radius:16px;
+  padding:12px;
+  margin:8px 0;
+}
+
+.hidden{
+  display:none!important;
+}
+
+.confetti{
+  position:fixed;
+  top:-20px;
+  width:10px;
+  height:16px;
+  z-index:9999;
+  pointer-events:none;
+  animation:fall 1.8s linear forwards;
+}
+
+@keyframes fall{
+  to{
+    transform:translate3d(var(--dx),110vh,0) rotate(720deg);
+    opacity:0;
+  }
+}
+
+.board{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-top:16px;
+}
+
+.crown{
+  aspect-ratio:1;
+  border-radius:18px;
+  border:3px solid #dfaa28;
+  background:linear-gradient(145deg,#ffe98b,#f4b72f);
+  box-shadow:0 5px 0 #d19b20;
+  color:#684600;
+  font-size:clamp(2rem,9vw,3.4rem);
+}
+
+.crown.used{
+  background:linear-gradient(145deg,#c9ced3,#92999f);
+  border-color:#777;
+  box-shadow:0 5px 0 #777;
+  filter:grayscale(1);
+}
+
+.mission{
+  margin-top:17px;
+  padding:16px;
+  border:2px dashed #ee83aa;
+  background:var(--pink2);
+  border-radius:18px;
+  line-height:1.5;
+  font-size:1.05rem;
+}
+
+.mission strong{
+  color:#d83d78;
+}
+
+.final{
+  text-align:center;
+  padding:18px;
+}
+
+.hearts{
+  font-size:2.4rem;
+  letter-spacing:4px;
+}
+
+@media(max-width:420px){
+  .board{gap:7px}
+  .crown{border-radius:13px}
+}
 </style>
 </head>
+
 <body>
-<h1>👑 Besties pour la vie ❤️</h1>
-<div id="menu">
-<input id="name" placeholder="Votre prénom">
-<br>
-<button onclick="createRoom()">Créer une partie</button>
-<button onclick="joinRoom()">Rejoindre une partie</button>
-<br>
-<input id="code" placeholder="Code de la partie">
-<p id="msg"></p>
+
+<main>
+<div class="panel">
+
+<h1>👑 Besties pour la vie</h1>
+
+<p class="center">
+Tiphaine & Leslie · 20 missions d'amour et de folie ❤️
+</p>
+
+<!-- ACCUEIL -->
+<section id="home">
+
+<h2>Créer ou rejoindre</h2>
+
+<p class="muted">
+Une joueuse crée la partie et partage le code à son autre bestie.
+</p>
+
+<label for="name">Votre prénom</label>
+
+<input
+  id="name"
+  maxlength="30"
+  placeholder="Ex. Tiphaine"
+>
+
+<div class="row" style="margin-top:12px">
+
+<button id="create">
+Créer une partie
+</button>
+
+<button id="showJoin" class="secondary">
+Rejoindre
+</button>
+
 </div>
 
-<div id="game">
-<p id="players"></p>
-<div id="crowns"></div>
-<div id="mission"></div>
+<div id="joinArea" class="hidden">
+
+<label for="codeInput">
+Code de partie
+</label>
+
+<input
+  id="codeInput"
+  maxlength="12"
+  placeholder="Code reçu sur WhatsApp"
+>
+
+<button id="join" style="margin-top:10px">
+Rejoindre la partie
+</button>
+
 </div>
 
-<div id="finish">
-<h2>💖 Meilleures amies pour la vie ❤️</h2>
-<p>👑 Partie terminée ! 👑</p>
+<div id="status" class="status">
+Prête à jouer ?
 </div>
+
+</section>
+
+
+<!-- JEU -->
+<section id="game" class="hidden">
+
+<div class="muted" id="connection">
+Connexion à Firebase…
+</div>
+
+<p class="muted">
+Code à partager sur WhatsApp :
+</p>
+
+<div class="code" id="roomCode"></div>
+
+<div class="status" id="gameStatus"></div>
+
+<div id="mission" class="mission hidden"></div>
+
+<div id="board" class="board"></div>
+
+<p class="muted">
+Une couronne choisie reste grise jusqu'à la fin de la partie.
+</p>
+
+</section>
+
+
+<!-- FIN -->
+<section id="finish" class="final hidden">
+
+<div class="hearts">
+❤️ 💕 ❤️ 💕 ❤️
+</div>
+
+<h2>
+Meilleures amies pour la vie ❤️
+</h2>
+
+<p>
+Les 20 missions sont terminées.
+Votre amitié est légendaire !
+</p>
+
+</section>
+
+</div>
+</main>
+
+
+<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
 
+
 <script>
-const firebaseConfig={
-apiKey:"AIzaSyB8TBx_SigmRrWUiV5Aq9juJnaWeg4-2so",
-authDomain:"bestie-pour-la-vie-22c50.firebaseapp.com",
-databaseURL:"https://bestie-pour-la-vie-22c50-default-rtdb.europe-west1.firebasedatabase.app",
-projectId:"bestie-pour-la-vie-22c50",
-storageBucket:"bestie-pour-la-vie-22c50.firebasestorage.app",
-messagingSenderId:"1008724192994",
-appId:"1:1008724192994:web:34931303c750b1f5ea38bb"
+
+/* =========================================================
+   FIREBASE
+========================================================= */
+
+const firebaseConfig = {
+
+  apiKey: "AIzaSyB8TBx_SigmRrWUiV5Aq9juJnaWeg4-2so",
+
+  authDomain:
+    "bestie-pour-la-vie-22c50.firebaseapp.com",
+
+  databaseURL:
+    "https://bestie-pour-la-vie-22c50-default-rtdb.europe-west1.firebasedatabase.app",
+
+  projectId:
+    "bestie-pour-la-vie-22c50",
+
+  storageBucket:
+    "bestie-pour-la-vie-22c50.firebasestorage.app",
+
+  messagingSenderId:
+    "1008724192994",
+
+  appId:
+    "1:1008724192994:web:34931303c750b1f5ea38bb"
 };
 
 firebase.initializeApp(firebaseConfig);
-const db=firebase.database();
-const auth=firebase.auth();
-let uid,roomId,roomRef;
-  const missions=[
-"Envoie une photo de ta grimace la plus bizarre 😂",
-"Envoie un vocal en chantant une chanson avec seulement « miaou » 🐱",
-"Écris une phrase normale puis ajoute l’emoji le plus bizarre que tu trouves 🤣",
-"Donne à ta bestie un surnom complètement ridicule 👑",
-"Prends en photo l’objet le plus proche et invente son histoire la plus absurde 😂",
-"Décris ta bestie avec seulement 5 emojis 💕",
-"Donne 3 indices sur ce que tu fais actuellement 🕵️",
-"Écris un message comme une princesse qui parle à son chevalier 👸",
-"Envoie une vidéo de 5 secondes avec ta pose la plus dramatique 🎭",
-"Envoie un vocal avec 3 imitations d’animaux 🐸🐔🐵"];
-  missions.push(
-"Inventez un faux fait complètement absurde sur vous. Votre bestie doit dire vrai ou faux 😂",
-"Si ta bestie était un plat, lequel serait-elle et pourquoi ? 🍕",
-"Écris une phrase sans utiliser les lettres A ni E 😈",
-"Envoie ton dernier emoji et invente une histoire folle expliquant pourquoi il représente votre amitié 🤣",
-"Envoie un vocal avec une voix de bébé pour demander quelque chose 👶",
-"Envoie une vidéo de 5 secondes avec ta danse la plus ridicule 💃",
-"Décris ta bestie comme l’héroïne d’un film complètement fou 🎬",
-"Écris une phrase tellement dramatique qu’on dirait la fin d’une série 😭",
-"Présente 3 qualités de ta bestie comme si tu annonçais les résultats d’un concours 🏆",
-"Dans 20 ans, notre amitié sera encore plus folle parce que… ❤️"
+
+const database = firebase.database();
+
+
+/* =========================================================
+   MISSIONS
+========================================================= */
+
+const missions = [
+
+"Envoie une photo de toi avec la grimace la plus catastrophique possible 😂",
+
+"Écris trois raisons pour lesquelles ta bestie est irremplaçable 💕",
+
+"Fais une vidéo de 10 secondes où tu danses comme une star internationale 💃",
+
+"Envoie un vocal en disant « je t'aime ma bestie » avec une voix de bébé 🥹",
+
+"Raconte votre souvenir le plus drôle sans utiliser le mot « rire » 🤣",
+
+"Imite ta bestie pendant 20 secondes et envoie la vidéo 😭",
+
+"Envoie cinq emojis qui décrivent votre amitié et explique-les 💖",
+
+"Fais un compliment sincère à ta bestie, mais en le chantant 🎤",
+
+"Envoie une photo d'un objet près de toi qui te fait penser à elle 🫶",
+
+"Écris une mini-déclaration d'amitié de exactement 20 mots 💌",
+
+"Décris ta bestie comme si elle était une héroïne de film 🎬",
+
+"Chante votre chanson d'amitié préférée, même si tu chantes faux 🎶",
+
+"Donne à ta bestie un surnom totalement ridicule et adorable 👑",
+
+"Raconte une chose que tu aimerais absolument faire avec elle un jour 🌍",
+
+"Présente ta bestie à la télévision pendant 15 secondes 📺",
+
+"Envoie ton dernier emoji utilisé et explique pourquoi il vous ressemble 😂",
+
+"Complète : « Si notre amitié était un gâteau… » 🍰",
+
+"Envoie un message rempli de cœurs sans utiliser le mot « amour » ❤️",
+
+"Dis quelle qualité de ta bestie tu voudrais posséder toi aussi ✨",
+
+"Termine par : « Meilleures amies pour la vie parce que… » 💞"
+
+];
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let roomId = "";
+let myName = "";
+let myPlayerId = "";
+let roomRef = null;
+let state = null;
+let previousMissionKey = null;
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const $ = id => document.getElementById(id);
+
+function status(message){
+  $("status").textContent = message;
+}
+
+
+/* =========================================================
+   IDENTIFIANT DU JOUEUR
+========================================================= */
+
+function getPlayerId(){
+
+  let id = localStorage.getItem("bestiesPlayerId");
+
+  if(!id){
+
+    id =
+      "player_" +
+      Math.random().toString(36).substring(2,10) +
+      Date.now().toString(36);
+
+    localStorage.setItem("bestiesPlayerId",id);
+  }
+
+  return id;
+}
+
+myPlayerId = getPlayerId();
+
+
+/* =========================================================
+   OUTILS
+========================================================= */
+
+function show(id){
+  $(id).classList.remove("hidden");
+}
+
+function hide(id){
+  $(id).classList.add("hidden");
+}
+
+function shuffle(array){
+
+  const a = [...array];
+
+  for(let i=a.length-1;i>0;i--){
+
+    const j =
+      Math.floor(Math.random()*(i+1));
+
+    [a[i],a[j]] =
+      [a[j],a[i]];
+  }
+
+  return a;
+}
+
+function escapeHtml(text){
+
+  return String(text).replace(
+    /[&<>"']/g,
+
+    character => ({
+
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#39;"
+
+    }[character])
+  );
+}
+
+
+/* =========================================================
+   CODE DE PARTIE
+========================================================= */
+
+function generateRoomCode(){
+
+  const characters =
+    "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+  let code = "";
+
+  for(let i=0;i<6;i++){
+
+    code +=
+      characters[
+        Math.floor(Math.random()*characters.length)
+      ];
+  }
+
+  return code;
+}
+
+
+/* =========================================================
+   CONFETTIS
+========================================================= */
+
+function celebrate(){
+
+  const pieces = [
+    "💗",
+    "💖",
+    "💜",
+    "💛",
+    "💙",
+    "👑",
+    "✨",
+    "🎉"
+  ];
+
+  for(let i=0;i<45;i++){
+
+    const p =
+      document.createElement("div");
+
+    p.className = "confetti";
+
+    p.textContent =
+      pieces[
+        Math.floor(Math.random()*pieces.length)
+      ];
+
+    p.style.left =
+      Math.random()*100+"vw";
+
+    p.style.fontSize =
+      (14+Math.random()*16)+"px";
+
+    p.style.setProperty(
+      "--dx",
+      (Math.random()*240-120)+"px"
+    );
+
+    p.style.animationDuration =
+      (1.2+Math.random()*1.5)+"s";
+
+    document.body.appendChild(p);
+
+    setTimeout(
+      ()=>p.remove(),
+      3200
+    );
+  }
+}
+
+
+/* =========================================================
+   AFFICHAGE
+========================================================= */
+
+function render(){
+
+  if(!state) return;
+
+  const players =
+    Object.values(state.players || {});
+
+  $("gameStatus").textContent =
+    players.join(" & ") +
+    " · " +
+    Object.keys(state.used || {}).length +
+    "/20 couronnes utilisées";
+
+
+  const board = $("board");
+
+  board.innerHTML = "";
+
+
+  for(let i=0;i<20;i++){
+
+    const button =
+      document.createElement("button");
+
+    button.className =
+      "crown" +
+      (state.used && state.used[i]
+        ? " used"
+        : "");
+
+    button.textContent =
+      state.used && state.used[i]
+        ? "♛"
+        : "👑";
+
+    button.disabled =
+      !!(state.used && state.used[i])
+      || !!state.finished;
+
+    button.onclick =
+      () => chooseCrown(i);
+
+    board.appendChild(button);
+  }
+
+
+  if(state.last){
+
+    show("mission");
+
+    $("mission").innerHTML =
+
+      "<strong>🎉 Nouvelle mission ! 👑</strong><br>" +
+
+      escapeHtml(state.last.text) +
+
+      "<br><span class='muted'>" +
+
+      "Couronne n°" +
+      (Number(state.last.index)+1) +
+
+      " · choisie par " +
+
+      escapeHtml(state.last.by) +
+
+      "</span>";
+
+  }else{
+
+    hide("mission");
+  }
+
+
+  if(state.finished){
+
+    hide("game");
+    show("finish");
+  }
+}
+
+
+/* =========================================================
+   ECOUTE FIREBASE
+========================================================= */
+
+function listenToRoom(){
+
+  roomRef =
+    database.ref("rooms/"+roomId);
+
+
+  roomRef.on(
+    "value",
+
+    snapshot => {
+
+      if(!snapshot.exists()){
+
+        $("connection").textContent =
+          "🔴 Partie introuvable";
+
+        status(
+          "Cette partie n'existe plus."
+        );
+
+        return;
+      }
+
+
+      state = snapshot.val();
+
+
+      $("connection").textContent =
+        "🟢 Connecté à Firebase";
+
+
+      render();
+
+
+      const key =
+        state.last
+
+        ? state.last.index +
+          ":" +
+          state.last.by +
+          ":" +
+          state.last.text
+
+        : "";
+
+
+      if(
+        key &&
+        key !== previousMissionKey
+      ){
+
+        celebrate();
+      }
+
+
+      previousMissionKey = key;
+    },
+
+    error => {
+
+      $("connection").textContent =
+        "🔴 Erreur Firebase";
+
+      status(
+        "Erreur de connexion à Firebase : " +
+        error.message
+      );
+    }
+  );
+}
+
+
+/* =========================================================
+   CREER UNE PARTIE
+========================================================= */
+
+$("create").onclick = async () => {
+
+  myName =
+    $("name").value.trim();
+
+
+  if(!myName){
+
+    status(
+      "Écrivez votre prénom."
+    );
+
+    return;
+  }
+
+
+  status(
+    "Création de la partie..."
+  );
+
+
+  roomId =
+    generateRoomCode();
+
+
+  roomRef =
+    database.ref("rooms/"+roomId);
+
+
+  const newState = {
+
+    order: shuffle(missions),
+
+    used: {},
+
+    players: {
+
+      [myPlayerId]: myName
+
+    },
+
+    finished: false,
+
+    last: null,
+
+    createdAt:
+      firebase.database.ServerValue.TIMESTAMP
+  };
+
+
+  try{
+
+    const snapshot =
+      await roomRef.transaction(
+        current => {
+
+          if(current !== null){
+
+            return;
+
+          }
+
+          return newState;
+        }
+      );
+
+
+    if(!snapshot.committed){
+
+      status(
+        "Le code existe déjà. Réessayez."
+      );
+
+      return;
+    }
+
+
+    hide("home");
+    show("game");
+
+    $("roomCode").textContent =
+      roomId;
+
+    status(
+      "Partie créée ! Partagez le code à votre bestie."
+    );
+
+
+    listenToRoom();
+
+  }catch(error){
+
+    status(
+      "Erreur Firebase : " +
+      error.message
+    );
+  }
+};
+
+
+/* =========================================================
+   AFFICHER REJOINDRE
+========================================================= */
+
+$("showJoin").onclick = () => {
+
+  show("joinArea");
+
+  status(
+    "Entrez le code reçu sur WhatsApp."
+  );
+};
+
+
+/* =========================================================
+   REJOINDRE UNE PARTIE
+========================================================= */
+
+$("join").onclick = async () => {
+
+  myName =
+    $("name").value.trim();
+
+  roomId =
+    $("codeInput").value
+      .trim()
+      .toUpperCase();
+
+
+  if(!myName || !roomId){
+
+    status(
+      "Indiquez votre prénom et le code."
+    );
+
+    return;
+  }
+
+
+  status(
+    "Connexion à la partie..."
+  );
+
+
+  roomRef =
+    database.ref("rooms/"+roomId);
+
+
+  try{
+
+    const snapshot =
+      await roomRef.once("value");
+
+
+    if(!snapshot.exists()){
+
+      status(
+        "Code incorrect ou partie inexistante."
+      );
+
+      return;
+    }
+
+
+    const current =
+      snapshot.val();
+
+
+    const players =
+      current.players || {};
+
+
+    if(
+      Object.keys(players).length >= 2 &&
+      !players[myPlayerId]
+    ){
+
+      status(
+        "Cette partie a déjà deux joueuses."
+      );
+
+      return;
+    }
+
+
+    await roomRef.transaction(
+      room => {
+
+        if(!room) return room;
+
+
+        if(!room.players)
+          room.players = {};
+
+
+        if(
+          !room.players[myPlayerId] &&
+          Object.keys(room.players).length < 2
+        ){
+
+          room.players[myPlayerId] =
+            myName;
+        }
+
+
+        return room;
+      }
+    );
+
+
+    hide("home");
+    show("game");
+
+    $("roomCode").textContent =
+      roomId;
+
+
+    status(
+      "Vous êtes dans la partie ! ❤️"
+    );
+
+
+    listenToRoom();
+
+  }catch(error){
+
+    status(
+      "Erreur de connexion : " +
+      error.message
+    );
+  }
+};
+
+
+/* =========================================================
+   CHOISIR UNE COURONNE
+========================================================= */
+
+async function chooseCrown(index){
+
+  if(!roomRef || !state)
+    return;
+
+
+  if(
+    state.used &&
+    state.used[index]
+  )
+    return;
+
+
+  if(state.finished)
+    return;
+
+
+  try{
+
+    await roomRef.transaction(
+      room => {
+
+        if(!room)
+          return room;
+
+
+        if(
+          room.used &&
+          room.used[index]
+        ){
+
+          return;
+        }
+
+
+        if(!room.used)
+          room.used = {};
+
+
+        room.used[index] = true;
+
+
+        room.last = {
+
+          index: index,
+
+          text:
+            room.order[index],
+
+          by:
+            myName
+        };
+
+
+        const count =
+          Object.keys(room.used).length;
+
+
+        if(count >= 20){
+
+          room.finished = true;
+        }
+
+
+        return room;
+      }
+    );
+
+  }catch(error){
+
+    status(
+      "Impossible de choisir la couronne : " +
+      error.message
+    );
+  }
+}
+
+
+/* =========================================================
+   NETTOYAGE DE LA PARTIE
+========================================================= */
+
+window.addEventListener(
+  "beforeunload",
+  () => {
+
+    if(roomRef){
+
+      roomRef.off();
+    }
+  }
 );
- auth.signInAnonymously().then(()=>{
-uid=auth.currentUser.uid;
-});
 
-function message(t){
-document.getElementById("msg").textContent=t;
-}
-
-function code(){
-return Math.random().toString(36).substring(2,8).toUpperCase();
-}
-
-function melange(a){
-return a.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
-}
-
-async function createRoom(){
-await auth.signInAnonymously();
-uid=auth.currentUser.uid;
-roomId=code();
-roomRef=db.ref("rooms/"+roomId);
-  const ordre=melange([...Array(20).keys()]);
-await roomRef.set({
-ordre:ordre,
-used:{},
-players:{[uid]:document.getElementById("name").value||"Joueuse"},
-last:-1,
-finished:false
-});
-document.getElementById("code").value=roomId;
-ecouter();
-}
-
-async function joinRoom(){
-await auth.signInAnonymously();
-uid=auth.currentUser.uid;
-roomId=document.getElementById("code").value.trim().toUpperCase();
-roomRef=db.ref("rooms/"+roomId);
-const s=await roomRef.get();
-
-if(!s.exists()){
-message("❌ Partie introuvable");
-return;
-}
-const r=s.val();
-if(Object.keys(r.players||{}).length>=2){
-message("❌ Cette partie est déjà complète");
-return;
-}
-await roomRef.child("players/"+uid).set(
-document.getElementById("name").value||"Joueuse"
-);
-ecouter();
-}
-function ecouter(){
-document.getElementById("menu").style.display="none";
-document.getElementById("game").style.display="block";
-
-roomRef.on("value",s=>{
-const r=s.val();
-if(!r)return;
-
-document.getElementById("players").textContent=
-"👭 "+Object.values(r.players||{}).join(" ❤️ ");
-
-if(r.finished){
-document.getElementById("game").style.display="none";
-document.getElementById("finish").style.display="block";
-return;
-}
-
-afficher(r);
-});
-}
-
-function afficher(r){
-const zone=document.getElementById("crowns");
-zone.innerHTML="";
-
-r.ordre.forEach((m,i)=>{
-const b=document.createElement("button");
-b.textContent=r.used&&r.used[i]?"⬜":"👑";
-b.style.fontSize="30px";
-b.onclick=()=>couronne(i);
-zone.appendChild(b);
-});
-}
-
-async function couronne(i){
-const s=await roomRef.get();
-const r=s.val();
-
-if(r.used&&r.used[i])return;
-
-r.used=r.used||{};
-r.used[i]=true;
-r.last=i;
-
-if(Object.keys(r.used).length>=20)
-r.finished=true;
-
-await roomRef.update({
-used:r.used,
-last:r.last,
-finished:r.finished
-});
-
-document.getElementById("mission").textContent=
-"💖 "+missions[r.ordre[i]];
-confettis();
-}
-
-function confettis(){
-for(let i=0;i<25;i++){
-const c=document.createElement("span");
-c.textContent="🎉";
-c.style.position="fixed";
-c.style.left=Math.random()*100+"%";
-c.style.top="0";
-c.style.fontSize="25px";
-document.body.appendChild(c);
-setTimeout(()=>c.remove(),1200);
-}
-}
 </script>
+
 </body>
-</html>  
-  
+</html>
