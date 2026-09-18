@@ -2,724 +2,496 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#ff4f9a">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Besties pour la vie ❤️</title>
-
 <style>
 *{box-sizing:border-box}
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:linear-gradient(135deg,#ffd8ec,#eadcff,#fff0f8);
-color:#28182c;
-min-height:100vh
-}
-button,input{font:inherit}
-button{cursor:pointer}
-.app{max-width:720px;margin:auto;padding:15px}
-header{text-align:center;padding:12px}
-.logo{font-size:45px}
-h1{font-size:36px;margin:5px 0}
-.card{
-background:rgba(255,255,255,.94);
-border-radius:25px;
-padding:18px;
-margin-bottom:15px;
-box-shadow:0 12px 35px #7b477b22
-}
-.hidden{display:none!important}
-input{
-width:100%;
-padding:14px;
-border-radius:14px;
-border:2px solid #f1cddd;
-outline:none;
-margin:5px 0 12px
-}
-input:focus{border-color:#ff4f9a}
-.btn{
-border:0;
-border-radius:15px;
-padding:13px 17px;
-font-weight:bold;
-background:linear-gradient(135deg,#ff4f9a,#895cf6);
-color:white;
-box-shadow:0 7px 16px #895cf633;
-margin:4px
-}
-.btn.secondary{
-background:white;
-color:#38243b;
-border:2px solid #efd7e6;
-box-shadow:none
-}
-.btn.danger{background:linear-gradient(135deg,#ef4444,#ec4899)}
-.row{display:flex;flex-wrap:wrap;gap:8px}
-.row>*{flex:1;min-width:140px}
-.code{
-font-size:30px;
-font-weight:bold;
-letter-spacing:6px;
-text-align:center;
-background:#fff0f7;
-border-radius:16px;
-padding:14px;
-margin:10px 0
-}
-.players{text-align:center;margin:10px}
-.player{
-display:inline-block;
-padding:8px 12px;
-border-radius:30px;
-background:#f5eaff;
-margin:4px;
-font-weight:bold
-}
-.status{
-padding:11px;
-border-radius:15px;
-background:#fff4fa;
-margin-bottom:12px
-}
-.dot{
-display:inline-block;
-width:10px;
-height:10px;
-border-radius:50%;
-background:#f59e0b;
-margin-right:6px
-}
-.dot.ok{background:#22c55e}
-.scores{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px
-}
-.score{
-background:linear-gradient(135deg,#fff0f7,#f0eaff);
-border-radius:18px;
-padding:12px;
-text-align:center
-}
-.score strong{display:block;font-size:28px}
-.crowns{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:10px
-}
-.crown{
-aspect-ratio:1;
-border-radius:20px;
-border:2px solid #ffd0e4;
-background:linear-gradient(145deg,#fff,#ffe0ee);
-font-size:36px;
-box-shadow:0 7px 15px #ff4f9a33;
-transition:.2s
-}
-.crown:active{transform:scale(.88)}
-.crown.used{
-background:linear-gradient(145deg,#aaa,#777);
-filter:grayscale(1);
-box-shadow:none;
-color:#fff
-}
-.mission{
-margin-top:16px;
-padding:20px;
-border-radius:23px;
-background:linear-gradient(135deg,#fff0f7,#eee6ff);
-border:2px solid #f0d3e5;
-animation:pop .35s
-}
-@keyframes pop{
-from{opacity:0;transform:scale(.9)}
-to{opacity:1;transform:scale(1)}
-}
-.tag{
-display:inline-block;
-padding:6px 10px;
-border-radius:20px;
-background:white;
-font-size:12px;
-font-weight:bold
-}
-.mission p{
-font-size:19px;
-line-height:1.5;
-font-weight:bold
-}
-.chaos{
-margin-top:12px;
-padding:20px;
-border-radius:20px;
-background:#24142c;
-color:white;
-text-align:center;
-animation:pop .35s
-}
-.final{
-text-align:center;
-padding:25px;
-border-radius:25px;
-background:linear-gradient(135deg,#fff0f7,#eee5ff)
-}
-.hearts{
-font-size:45px;
-animation:pulse 1s infinite
-}
-@keyframes pulse{50%{transform:scale(1.1)}}
-.toast{
-position:fixed;
-bottom:20px;
-left:50%;
-transform:translateX(-50%);
-background:#24142c;
-color:white;
-padding:12px 18px;
-border-radius:30px;
-z-index:100;
-max-width:90%;
-text-align:center
-}
-#confetti{
-position:fixed;
-inset:0;
-pointer-events:none;
-z-index:99
-}
-.small{font-size:13px;color:#765f73}
-footer{text-align:center;font-size:12px;color:#765f73;margin:20px}
-@media(max-width:430px){
-.crowns{gap:7px}
-.crown{font-size:28px;border-radius:16px}
-h1{font-size:31px}
-}
+body{margin:0;font-family:Arial;background:linear-gradient(135deg,#ffd8ec,#e8dcff);color:#321b35;text-align:center}
+main{max-width:650px;margin:auto;padding:15px}
+.card{background:#fff;padding:20px;border-radius:25px;margin:15px 0;box-shadow:0 8px 25px #0002}
+input{width:100%;padding:14px;border:2px solid #f2cde0;border-radius:14px;margin:6px 0 12px}
+button{border:0;border-radius:14px;padding:13px;margin:5px;font-weight:bold;cursor:pointer}
+.btn{background:linear-gradient(135deg,#ff4f9a,#875cf5);color:white}
+.gray{background:#999;color:white}
+.hidden{display:none}
+.row{display:flex;flex-wrap:wrap;justify-content:center}
+.row button{flex:1;min-width:130px}
+#crowns{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.crown{font-size:30px;background:#ffe1ee}
+.used{background:#888;color:white}
+#mission{font-size:18px;font-weight:bold;margin:15px 0}
+#confetti{position:fixed;inset:0;pointer-events:none}
+.code{font-size:30px;font-weight:bold;letter-spacing:6px}
+.score{font-size:20px}
 </style>
 </head>
 
 <body>
 
 <canvas id="confetti"></canvas>
-<div id="toast" class="toast hidden"></div>
 
-<div class="app">
+<main>
 
-<header>
-<div class="logo">👑💕</div>
-<h1>Besties pour la vie</h1>
-<p>Un jeu pour deux, même à distance ❤️</p>
-</header>
+<div id="home" class="card">
+<h1>👑 Besties pour la vie ❤️</h1>
+<p>Un jeu pour deux, même à distance.</p>
 
-<!-- ACCUEIL -->
-<section id="home" class="card">
-
-<h2>💖 Votre partie</h2>
-
-<p class="small">
-La partie reste sauvegardée dans Firebase.
-Fermer Chrome ou quitter le lien ne termine pas la partie.
-</p>
-
-<label>Votre prénom</label>
-<input id="name" placeholder="Tiphaine ou Leslie" maxlength="20">
+<input id="name" placeholder="Votre prénom">
 
 <div class="row">
 <button class="btn" id="create">👑 Nouvelle partie</button>
-<button class="btn secondary" id="showJoin">🔗 Rejoindre</button>
+<button class="btn" id="show">🔗 Rejoindre</button>
 </div>
 
 <div id="joinBox" class="hidden">
-<label>Code de la partie</label>
-<input id="code" maxlength="6" placeholder="Ex : A7K2P9">
-<button class="btn" id="join">💕 Rejoindre la partie</button>
+<input id="codeInput" placeholder="Code de la partie" maxlength="6">
+<button class="btn" id="join">💕 Rejoindre</button>
+</div>
 </div>
 
-<hr>
 
-<p>
-<b>Comment jouer ?</b><br>
-👑 Choisissez une couronne.<br>
-😂 Découvrez votre défi.<br>
-🏆 Réalisez-le et gagnez des points.<br>
-🚨 Déclenchez parfois un Chaos Besties.<br>
-💕 Les deux joueuses peuvent jouer même si elles ne sont pas en appel.
-</p>
-
-</section>
-
-<!-- JEU -->
-<section id="game" class="hidden">
-
-<div class="status">
-<span id="dot" class="dot"></span>
-<span id="connection">Connexion...</span>
-<button class="btn secondary" id="sound">🔊 Son ON</button>
-</div>
+<div id="game" class="hidden">
 
 <div class="card">
+<h2>👑 Besties pour la vie</h2>
 
-<div class="small">CODE DE LA PARTIE</div>
+<p>Code de la partie :</p>
 <div class="code" id="gameCode">------</div>
 
-<div class="row">
-<button class="btn secondary" id="copy">📋 Copier</button>
-<button class="btn secondary" id="share">💌 Partager</button>
-</div>
-
-<div class="players" id="players"></div>
-
-<div class="scores">
-<div class="score">
-<span id="name1">Joueuse 1</span>
-<strong id="score1">0</strong>
-points
-</div>
+<p id="players"></p>
 
 <div class="score">
-<span id="name2">Joueuse 2</span>
-<strong id="score2">0</strong>
-points
-</div>
+🏆 <span id="score1">0</span>
+&nbsp;&nbsp; -
+&nbsp;&nbsp;
+<span id="score2">0</span> 🏆
 </div>
 
+<button class="btn" id="share">💌 Partager</button>
 </div>
+
 
 <div class="card">
 
 <h2>👑 Choisissez une couronne</h2>
 
-<p class="small">
-Une couronne utilisée devient grise et reste grise.
-</p>
-
-<div id="crowns" class="crowns"></div>
+<div id="crowns"></div>
 
 <div id="mission"></div>
 
-<div id="chaos"></div>
+</div>
+
+
+<div id="final" class="card hidden">
+<h1>💕❤️💕</h1>
+<h2>Meilleures amies pour la vie ❤️</h2>
+<p>Les 20 couronnes sont terminées !</p>
+</div>
+
+<button class="btn" id="newGame">🆕 Nouvelle partie</button>
 
 </div>
 
-<div id="final" class="card hidden"></div>
-
-<div class="card">
-
-<button class="btn danger" id="newGame">
-🆕 Nouvelle partie
-</button>
-
-<p class="small">
-⚠️ Seul ce bouton recommence la partie.
-Fermer le jeu ne supprime pas votre progression.
-</p>
-
-</div>
-
-</section>
-
-<footer>
-Besties pour la vie ❤️
-</footer>
-
-</div>
+</main>
 
 
 <script type="module">
 
-/* =====================================================
-FIREBASE
-===================================================== */
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 
-import {initializeApp}
-from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import{getAuth,signInAnonymously,onAuthStateChanged}
+from"https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
-import {
-getAuth,
-signInAnonymously,
-onAuthStateChanged
-}
-from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-
-import {
-getDatabase,
-ref,
-get,
-set,
-update,
-onValue,
-runTransaction,
-serverTimestamp
-}
-from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+import{getDatabase,ref,get,set,update,onValue,runTransaction}
+from"https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
 
 
 const firebaseConfig={
+apiKey:"AIzaSyB8TBx_SigmRrWUiV5Aq9juJnaWeg-4so",
+authDomain:"bestie-pour-la-vie-22c50.firebaseapp.com",
+projectId:"bestie-pour-la-vie-22c50",
+storageBucket:"bestie-pour-la-vie-22c50.firebasestorage.app",
+messagingSenderId:"1008724192994",
+appId:"1:1008724192994:web:34931303c750b1f5ea38bb",
+databaseURL:"https://bestie-pour-la-vie-22c50-default-rtdb.europe-west1.firebasedatabase.app"
+};
 
-apiKey:"AIzaSyB8TBx_SigmRrWUiV5Aq9juJnaWeg4-2so",
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getDatabase(app);
 
-authDomain:
-"bestie-pour-la-vie-22c50.firebaseapp.com",
+let uid=null;
+let code="";
+let myName="";
+let game=null;
 
-projectId:
-"bestie-pour-la-vie-22c50",
+const missions=[
+"😂 Fais ta pire grimace et envoie une photo à ta bestie.",
+"🎤 Chante un refrain choisi par ta bestie en vocal.",
+"🤫 Fais écrire le mot « banane » à ta bestie sans lui expliquer pourquoi.",
+"🧠 Devine le plat préféré de ta bestie.",
+"💃 Fais une mini-danse ridicule et envoie-la.",
+"😈 Donne un surnom ridicule à ta bestie.",
+"🎭 Imite une habitude de ta bestie.",
+"📸 Envoie une photo prise maintenant avec une pose bizarre.",
+"❤️ Raconte votre souvenir commun le plus drôle.",
+"🤯 Invente une excuse complètement absurde.",
+"💕 Donne trois qualités de ta bestie.",
+"😂 Envoie un message complètement absurde.",
+"🎤 Parle comme un personnage de dessin animé.",
+"🃏 Donne un petit gage à ta bestie.",
+"🧠 Pense à une couleur et fais-la deviner.",
+"🎬 Inventez une scène de film ensemble.",
+"🤪 Inventez votre nom de duo le plus ridicule.",
+"💌 Envoie un message inattendu à ta bestie.",
+"😈 Révèle une petite habitude amusante de ta bestie.",
+"👑 Fais quelque chose de drôle spécialement pour ta bestie."
+];
 
-storageBucket:
-"bestie-pour-la-vie-22c50.firebasestorage.app",
+const $=x=>document.getElementById(x);
 
-messagingSenderId:
-"1008724192994",
+onAuthStateChanged(auth,u=>{
+if(u){
+uid=u.uid;
+}
+});
 
-appId:
-"1:1008724192994:web:34931303c750b1f5ea38bb",
+signInAnonymously(auth).catch(e=>{
+console.error(e);
+alert("Erreur Firebase : activez l'authentification anonyme.");
+});
 
-databaseURL:
-"https://bestie-pour-la-vie-22c50-default-rtdb.europe-west1.firebasedatabase.app"
 
+$("show").onclick=()=>{
+$("joinBox").classList.toggle("hidden");
 };
 
 
-const app=initializeApp(firebaseConfig);
-
-const auth=getAuth(app);
-
-const db=getDatabase(app);
-
-
-/* =====================================================
-VARIABLES
-===================================================== */
-
-let uid=null;
-
-let gameCode=
-localStorage.getItem("besties_game_code")||"";
-
-let myName=
-localStorage.getItem("besties_name")||"";
-
-let game=null;
-
-let unsubscribe=null;
-
-let soundOn=
-localStorage.getItem("besties_sound")!=="off";
-
-
-/* =====================================================
-20 MISSIONS
-===================================================== */
-
-const missions=[
-
-{
-type:"😂 FOU RIRE",
-text:"Fais ta pire grimace et envoie une photo à ta bestie. Elle doit lui donner un nom ridicule."
-},
-
-{
-type:"🎤 VOCAL",
-text:"Envoie un vocal dans lequel tu chantes le refrain d'une chanson choisie par ta bestie."
-},
-
-{
-type:"🤫 MISSION SECRÈTE",
-text:"Trouve une façon naturelle de faire écrire à ta bestie le mot « banane » sans lui expliquer pourquoi."
-},
-
-{
-type:"🧠 QUI CONNAÎT QUI ?",
-text:"Écris ce que tu penses être le plat préféré de ta bestie. Elle révèle ensuite si tu as trouvé."
-},
-
-{
-type:"💃 DÉFI",
-text:"Fais une mini-danse complètement ridicule et envoie-la en vidéo à ta bestie."
-},
-
-{
-type:"😈 SANS PITIÉ",
-text:"Donne à ta bestie un surnom tellement ridicule qu'elle devra le garder jusqu'à la prochaine couronne."
-},
-
-{
-type:"🎭 IMITATION",
-text:"Imite une habitude de ta bestie et envoie un vocal. Elle doit deviner ce que tu imites."
-},
-
-{
-type:"📸 PHOTO",
-text:"Envoie une photo prise maintenant, sans préparation, avec ta pose la plus bizarre."
-},
-
-{
-type:"❤️ SOUVENIR",
-text:"Raconte votre souvenir commun qui te fait encore rire aujourd'hui."
-},
-
-{
-type:"🤯 HISTOIRE",
-text:"Invente une excuse complètement absurde pour expliquer pourquoi tu es arrivée en retard à votre rendez-vous imaginaire."
-},
-
-{
-type:"💕 AMITIÉ",
-text:"Écris trois choses que tu apprécies sincèrement chez ta bestie."
-},
-
-{
-type:"😂 FAIS-LA RIRE",
-text:"Envoie un message tellement absurde que ta bestie doit répondre 😂 si elle a ri."
-},
-
-{
-type:"🎤 VOIX",
-text:"Envoie un vocal en parlant comme un personnage de dessin animé."
-},
-
-{
-type:"🃏 GAGE",
-text:"Choisis un petit gage amusant que ta bestie doit réaliser avant sa prochaine couronne."
-},
-
-{
-type:"🧠 DEVINE",
-text:"Pense à une couleur. Ta bestie doit essayer de la deviner. Révélez ensuite vos réponses."
-},
-
-{
-type:"🎬 CINÉMA",
-text:"Réécrivez une scène célèbre de film comme si vous étiez toutes les deux les personnages principaux."
-},
-
-{
-type:"🤪 DUO",
-text:"Inventez votre nom de duo le plus ridicule et gardez-le jusqu'à la fin de la partie."
-},
-
-{
-type:"💌 MESSAGE",
-text:"Envoie à ta bestie un message qu'elle ne s'attend absolument pas à recevoir aujourd'hui."
-},
-
-{
-type:"😈 PROVOCATION",
-text:"Donne une petite vérité amusante sur une habitude de ta bestie, sans être méchante."
-},
-
-{
-type:"👑 GRAND DÉFI",
-text:"Fais quelque chose de drôle spécialement pour ta bestie, puis envoie-lui la preuve par photo, vidéo ou vocal."
-}
-
-];
-
-
-/* =====================================================
-CHAOS BESTIES
-===================================================== */
-
-const chaos=[
-
-"🚨 CHAOS BESTIES ! Envoyez chacune un emoji représentant votre humeur actuelle.",
-
-"🚨 CHAOS BESTIES ! Donnez-vous chacune un nouveau prénom ridicule.",
-
-"🚨 CHAOS BESTIES ! Envoyez chacune le premier GIF ou sticker qui vous fait penser à votre amitié.",
-
-"🚨 CHAOS BESTIES ! Inventez chacune une règle complètement absurde pour votre amitié.",
-
-"🚨 CHAOS BESTIES ! Écrivez une phrase que votre bestie pourrait dire. Comparez vos réponses.",
-
-"🚨 CHAOS BESTIES ! Envoyez chacune une photo d'un objet près de vous qui représente votre amitié."
-
-];
-
-
-/* =====================================================
-UTILITAIRES
-===================================================== */
-
-function $(id){
-return document.getElementById(id);
-}
-
-
-function toast(text){
-
-$("toast").textContent=text;
-
-$("toast").classList.remove("hidden");
-
-clearTimeout(window.toastTimer);
-
-window.toastTimer=setTimeout(()=>{
-$("toast").classList.add("hidden")
-},3000);
-
-}
-
-
-function randomCode(){
-
-const chars="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-
-let result="";
-
+function codeRandom(){
+let s="ABCDEFGHJKLMNPQRSTUVWXYZ23456789",r="";
 for(let i=0;i<6;i++)
-result+=chars[Math.floor(Math.random()*chars.length)];
-
-return result;
-
+r+=s[Math.floor(Math.random()*s.length)];
+return r;
 }
 
 
-function shuffle(array){
-
-let a=[...array];
-
-for(let i=a.length-1;i>0;i--){
-
+function shuffle(a){
+a=[...a];
+for(let i=a.length-1;i;i--){
 let j=Math.floor(Math.random()*(i+1));
-
 [a[i],a[j]]=[a[j],a[i]];
-
 }
-
 return a;
+}
+
+
+async function create(){
+
+myName=$("name").value.trim();
+
+if(!myName){
+alert("Écrivez votre prénom ❤️");
+return;
+}
+
+if(!uid){
+alert("Connexion Firebase en cours...");
+return;
+}
+
+code=codeRandom();
+
+let order=shuffle([...Array(20).keys()]);
+
+game={
+players:{
+p1:{uid:uid,name:myName,score:0}
+},
+order:order,
+used:Array(20).fill(false),
+mission:null
+};
+
+await set(ref(db,"games/"+code),game);
+
+localStorage.setItem("besties_code",code);
+localStorage.setItem("besties_name",myName);
+
+openGame();
 
 }
 
 
-function escapeHTML(text){
+$("create").onclick=create;
 
-return String(text||"")
-.replace(/[&<>"']/g,c=>({
-"&":"&amp;",
-"<":"&lt;",
-">":"&gt;",
-'"':"&quot;",
-"'":"&#039;"
-}[c]));
+
+async function join(){
+
+myName=$("name").value.trim();
+code=$("codeInput").value.trim().toUpperCase();
+
+if(!myName){
+alert("Écrivez votre prénom ❤️");
+return;
+}
+
+if(code.length!==6){
+alert("Le code doit contenir 6 caractères.");
+return;
+}
+
+if(!uid){
+alert("Connexion Firebase en cours...");
+return;
+}
+
+let snap=await get(ref(db,"games/"+code));
+
+if(!snap.exists()){
+alert("Partie introuvable.");
+return;
+}
+
+let g=snap.val();
+
+if(g.players.p2){
+alert("Cette partie contient déjà deux joueuses.");
+return;
+}
+
+await update(ref(db,"games/"+code),{
+"players/p2":{uid:uid,name:myName,score:0}
+});
+
+localStorage.setItem("besties_code",code);
+localStorage.setItem("besties_name",myName);
+
+openGame();
 
 }
 
 
-/* =====================================================
-SONS
-===================================================== */
-
-let audio=null;
+$("join").onclick=join;
 
 
-function startAudio(){
+function openGame(){
 
-if(!soundOn)return;
+$("home").classList.add("hidden");
+$("game").classList.remove("hidden");
+$("gameCode").textContent=code;
 
-try{
+onValue(ref(db,"games/"+code),snap=>{
 
-if(!audio)
-audio=new AudioContext();
+if(!snap.exists())return;
 
-if(audio.state==="suspended")
-audio.resume();
-
-}catch(e){}
-
-}
-
-
-function beep(freq=600,duration=.12){
-
-if(!soundOn)return;
-
-startAudio();
-
-if(!audio)return;
-
-const osc=audio.createOscillator();
-
-const gain=audio.createGain();
-
-osc.connect(gain);
-
-gain.connect(audio.destination);
-
-osc.frequency.value=freq;
-
-gain.gain.value=.04;
-
-osc.start();
-
-osc.stop(audio.currentTime+duration);
-
-}
-
-
-function crownSound(){
-
-beep(600,.1);
-
-setTimeout(()=>beep(800,.1),100);
-
-setTimeout(()=>beep(1000,.15),200);
-
-}
-
-
-function finalSound(){
-
-[523,659,784,1047].forEach((f,i)=>{
-
-setTimeout(()=>beep(f,.2),i*130);
+game=snap.val();
+render();
 
 });
 
 }
 
 
-/* =====================================================
-CONFETTIS
-===================================================== */
+function render(){
 
-const canvas=$("confetti");
+if(!game)return;
 
-const ctx=canvas.getContext("2d");
+let p1=game.players.p1;
+let p2=game.players.p2;
 
-let confettis=[];
+$("players").textContent=
+"👑 "+p1.name+
+(p2?" 💕 "+p2.name:" 💕 En attente...");
 
-let animating=false;
+$("score1").textContent=p1.score||0;
+$("score2").textContent=p2?p2.score||0:0;
 
+$("crowns").innerHTML="";
 
-function resize(){
+for(let i=0;i<20;i++){
 
-canvas.width=innerWidth;
+let b=document.createElement("button");
 
-canvas.height=innerHeight;
+b.className="crown";
+
+if(game.used[i]){
+
+b.classList.add("used");
+b.textContent="✓";
+b.disabled=true;
+
+}else{
+
+b.textContent="👑";
+b.onclick=()=>useCrown(i);
 
 }
 
-resize();
+$("crowns").appendChild(b);
 
-addEventListener("resize",resize);
+}
 
 
-function launchConfetti(amount=180){
+if(game.mission!==null){
 
-for(let i=0;i<amount;i++){
+$("mission").innerHTML=
+"💖 <br>"+missions[game.mission];
 
-confettis.push({
+}else{
 
-x:Math.random()*innerWidth,
+$("mission").innerHTML="";
+}
 
-y:-20,
 
-vx:(Math.random()-.5)*8,
+if(game.used.filter(Boolean).length===20){
 
-vy:2+Math.random()*7,
+$("final").classList.remove("hidden");
 
-size:4+Math.random()*8,
+}
 
-life:100+Math.random()*100,
+}
 
-rotation:
+
+async function useCrown(i){
+
+if(game.used[i])return;
+
+let mission=game.order[i];
+
+let result=await runTransaction(
+ref(db,"games/"+code),
+g=>{
+
+if(!g||g.used[i])return;
+
+g.used[i]=true;
+g.mission=mission;
+
+return g;
+
+});
+
+if(!result.committed)return;
+
+let player=
+game.players.p1.uid===uid?"p1":
+game.players.p2?.uid===uid?"p2":null;
+
+if(player){
+
+await runTransaction(
+ref(db,"games/"+code+"/players/"+player+"/score"),
+s=>(s||0)+1
+);
+
+}
+
+confetti();
+
+}
+
+
+function confetti(){
+
+let c=$("confetti");
+let x=c.getContext("2d");
+
+c.width=innerWidth;
+c.height=innerHeight;
+
+let a=[];
+
+for(let i=0;i<150;i++){
+
+a.push({
+x:Math.random()*c.width,
+y:-10,
+v:2+Math.random()*6,
+s:4+Math.random()*7,
+l:100
+});
+
+}
+
+function draw(){
+
+x.clearRect(0,0,c.width,c.height);
+
+a.forEach(p=>{
+
+p.y+=p.v;
+p.l--;
+
+x.fillStyle=
+"hsl("+Math.random()*360+",90%,60%)";
+
+x.fillRect(p.x,p.y,p.s,p.s);
+
+});
+
+a=a.filter(p=>p.l>0&&p.y<c.height);
+
+if(a.length)requestAnimationFrame(draw);
+
+}
+
+draw();
+
+}
+
+
+$("share").onclick=async()=>{
+
+let text=
+"💕 Rejoins ma partie Besties pour la vie !\n"+
+"Code : "+code;
+
+if(navigator.share){
+
+await navigator.share({
+title:"Besties pour la vie ❤️",
+text:text
+});
+
+}else{
+
+await navigator.clipboard.writeText(text);
+
+alert("Message copié ❤️");
+
+}
+
+};
+
+
+$("newGame").onclick=()=>{
+
+localStorage.removeItem("besties_code");
+
+location.reload();
+
+};
+
+
+let savedCode=localStorage.getItem("besties_code");
+let savedName=localStorage.getItem("besties_name");
+
+if(savedCode&&savedName){
+
+code=savedCode;
+myName=savedName;
+
+$("name").value=savedName;
+
+setTimeout(()=>{
+
+if(uid)openGame();
+
+},1000);
+
+}
+
+</script>
+
+</body>
+</html>
